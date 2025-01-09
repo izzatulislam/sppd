@@ -41,30 +41,65 @@
     <div class="container">
         <h3>Rincian SPPD</h3>
         <div class="rincian">
-            <p>Jarak: <?php echo $_GET['jarak']; ?> km - Rp. <?php echo $_GET['nominalJarak']; ?></p>
-            <p>Durasi: <?php echo $_GET['durasi']; ?> jam - Rp. <?php echo $_GET['nominalDurasi']; ?></p>
-            <p>Snack: <?php echo $_GET['snack']; ?> porsi - Rp. <?php echo $_GET['nominalSnack']; ?></p>
-            <p>Makan: <?php echo $_GET['makan']; ?> porsi - Rp. <?php echo $_GET['nominalMakan']; ?></p>
-            <p>Lembur: <?php echo $_GET['lembur']; ?> jam - Rp. <?php echo $_GET['nominalLembur']; ?></p>
-            <p>Menginap: <?php echo $_GET['menginap']; ?> hari - Rp. <?php echo $_GET['nominalMenginap']; ?></p>
+            <p id="jarak"></p>
+            <p id="durasi"></p>
+            <p id="snack"></p>
+            <p id="makan"></p>
+            <p id="lembur"></p>
+            <p id="menginap"></p>
         </div>
 
         <div class="total">
-            <p>Total Biaya: Rp. <?php echo $_GET['total']; ?></p>
-            <p><?php echo $_GET['totalTerbilang']; ?> Rupiah</p>
+            <p id="total"></p>
+            <p id="totalTerbilang"></p>
         </div>
 
-        <?php if (!empty($_GET['catatan'])) { ?>
-        <div class="catatan">
-            <p>Catatan: <?php echo $_GET['catatan']; ?></p>
+        <div class="catatan" id="catatanContainer" style="display: none;">
+            <p id="catatan"></p>
         </div>
-        <?php } ?>
 
-        <?php if (!empty($_GET['keteranganTambahan'])) { ?>
-        <div class="keterangan-tambahan">
-            <p>Keterangan Tambahan: <?php echo $_GET['keteranganTambahan']; ?></p>
+        <div class="keterangan-tambahan" id="keteranganTambahanContainer" style="display: none;">
+            <p id="keteranganTambahan"></p>
         </div>
-        <?php } ?>
     </div>
+
+    <script>
+        // Mengambil parameter dari URL
+        const urlParams = new URLSearchParams(window.location.search);
+
+        // Fungsi untuk menampilkan parameter di elemen tertentu
+        function setTextContent(id, text) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.textContent = text;
+            }
+        }
+
+        // Menampilkan data di bagian rincian
+        setTextContent('jarak', `Jarak: ${urlParams.get('jarak')} km - Rp. ${urlParams.get('nominalJarak')}`);
+        setTextContent('durasi', `Durasi: ${urlParams.get('durasi')} jam - Rp. ${urlParams.get('nominalDurasi')}`);
+        setTextContent('snack', `Snack: ${urlParams.get('snack')} porsi - Rp. ${urlParams.get('nominalSnack')}`);
+        setTextContent('makan', `Makan: ${urlParams.get('makan')} porsi - Rp. ${urlParams.get('nominalMakan')}`);
+        setTextContent('lembur', `Lembur: ${urlParams.get('lembur')} jam - Rp. ${urlParams.get('nominalLembur')}`);
+        setTextContent('menginap', `Menginap: ${urlParams.get('menginap')} hari - Rp. ${urlParams.get('nominalMenginap')}`);
+
+        // Menampilkan total biaya
+        setTextContent('total', `Total Biaya: Rp. ${urlParams.get('total')}`);
+        setTextContent('totalTerbilang', `${urlParams.get('totalTerbilang')} Rupiah`);
+
+        // Menampilkan catatan jika ada
+        const catatan = urlParams.get('catatan');
+        if (catatan) {
+            document.getElementById('catatanContainer').style.display = 'block';
+            setTextContent('catatan', `Catatan: ${catatan}`);
+        }
+
+        // Menampilkan keterangan tambahan jika ada
+        const keteranganTambahan = urlParams.get('keteranganTambahan');
+        if (keteranganTambahan) {
+            document.getElementById('keteranganTambahanContainer').style.display = 'block';
+            setTextContent('keteranganTambahan', `Keterangan Tambahan: ${keteranganTambahan}`);
+        }
+    </script>
 </body>
 </html>
