@@ -39,7 +39,7 @@ function hitungTotal() {
   let biayaJarak = 0;
 
   if (jenisKendaraan === 'pribadi') {
-    biayaJarak = jarak * 750;
+    biayaJarak = jarak * 1000;
   } else if (jenisKendaraan === 'mobilLayanan') {
     biayaJarak = jarak * 2000;
   } else if (jenisKendaraan === 'mobilAntarJemput') {
